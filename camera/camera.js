@@ -1,61 +1,61 @@
 //OX, OY, OZ
 const vectors = [
     //Floor
-    [[-300, 750, 0], [300, 750, 0]],
-    [[-300, 750, 0], [-300, 2500, 0]],
-    [[-300, 2500, 0], [300, 2500, 0]],
-    [[300, 2500, 0], [300, 750, 0]],
+    [[-300, 750, -150], [300, 750, -150]],
+    [[-300, 750, -150], [-300, 2500, -150]],
+    [[-300, 2500, -150], [300, 2500, -150]],
+    [[300, 2500, -150], [300, 750, -150]],
 
     //Left Block
-    [[400, 1200, 0], [550, 1200, 0]],
-    [[400, 1200, 0], [400, 2000, 0]],
-    [[400, 2000, 0], [550, 2000, 0]],
-    [[550, 2000, 0], [550, 1200, 0]],
+    [[400, 1200, -150], [550, 1200, -150]],
+    [[400, 1200, -150], [400, 2000, -150]],
+    [[400, 2000, -150], [550, 2000, -150]],
+    [[550, 2000, -150], [550, 1200, -150]],
 
     [[400, 1200, 400], [550, 1200, 400]],
     [[400, 1200, 400], [400, 2000, 400]],
     [[400, 2000, 400], [550, 2000, 400]],
     [[550, 2000, 400], [550, 1200, 400]],
 
-    [[400, 1200, 0], [400, 1200, 400]],
-    [[550, 1200, 400], [550, 1200, 0]],
+    [[400, 1200, -150], [400, 1200, 400]],
+    [[550, 1200, 400], [550, 1200, -150]],
 
-    [[400, 2000, 0], [400, 2000, 400]],
-    [[550, 2000, 0], [550, 2000, 400]],
+    [[400, 2000, -150], [400, 2000, 400]],
+    [[550, 2000, -150], [550, 2000, 400]],
 
     //Right first block
-    [[-400, 800, 0], [-500, 800, 0]],
-    [[-400, 800, 0], [-400, 1500, 0]],
-    [[-400, 1500, 0], [-500, 1500, 0]],
-    [[-500, 1500, 0], [-500, 800, 0]],
+    [[-400, 800, -150], [-500, 800, -150]],
+    [[-400, 800, -150], [-400, 1500, -150]],
+    [[-400, 1500, -150], [-500, 1500, -150]],
+    [[-500, 1500, -150], [-500, 800, -150]],
 
     [[-400, 800, 200], [-500, 800, 200]],
     [[-400, 800, 200], [-400, 1500, 200]],
     [[-400, 1500, 200], [-500, 1500, 200]],
     [[-500, 1500, 200], [-500, 800, 200]],
 
-    [[-400, 800, 0], [-400, 800, 200]],
-    [[-500, 800, 200], [-500, 800, 0]],
+    [[-400, 800, -150], [-400, 800, 200]],
+    [[-500, 800, 200], [-500, 800, -150]],
 
-    [[-400, 1500, 0], [-400, 1500, 200]],
-    [[-500, 1500, 0], [-500, 1500, 200]],
+    [[-400, 1500, -150], [-400, 1500, 200]],
+    [[-500, 1500, -150], [-500, 1500, 200]],
 
     //Right second block
-    [[-350, 1650, 0], [-550, 1650, 0]],
-    [[-350, 1650, 0], [-350, 2400, 0]],
-    [[-350, 2400, 0], [-550, 2400, 0]],
-    [[-550, 2400, 0], [-550, 1650, 0]],
+    [[-350, 1650, -150], [-550, 1650, -150]],
+    [[-350, 1650, -150], [-350, 2400, -150]],
+    [[-350, 2400, -150], [-550, 2400, -150]],
+    [[-550, 2400, -150], [-550, 1650, -150]],
 
     [[-350, 1650, 300], [-550, 1650, 300]],
     [[-350, 1650, 300], [-350, 2400, 300]],
     [[-350, 2400, 300], [-550, 2400, 300]],
     [[-550, 2400, 300], [-550, 1650, 300]],
 
-    [[-350, 1650, 0], [-350, 1650, 300]],
-    [[-550, 1650, 300], [-550, 1650, 0]],
+    [[-350, 1650, -150], [-350, 1650, 300]],
+    [[-550, 1650, 300], [-550, 1650, -150]],
 
-    [[-350, 2400, 0], [-350, 2400, 300]],
-    [[-550, 2400, 0], [-550, 2400, 300]],
+    [[-350, 2400, -150], [-350, 2400, 300]],
+    [[-550, 2400, -150], [-550, 2400, 300]],
 ];
 
 let focal = 1;
@@ -63,6 +63,53 @@ const STEP_FOCAL_CHANGE = 0.1;
 const STEP_TRANSLATION_CHANGE = 25;
 const STEP_ROTATE_DEGREES = 1;
 const COEFFICIENT_ROTATE = STEP_ROTATE_DEGREES * Math.PI / 180;
+
+document.addEventListener('keydown', function(event) {
+    switch (event.code) {
+        case 'KeyW':
+            rotateUp();
+            break;
+        case 'KeyS':
+            rotateDown();
+            break;
+        case 'KeyA':
+            rotateLeft();
+            break;
+        case 'KeyD':
+            rotateRight();
+            break;
+        case 'ArrowRight':
+            moveRight();
+            break;
+        case 'ArrowLeft':
+            moveLeft();
+            break;
+        case 'ArrowUp':
+            moveForward();
+            break;
+        case 'ArrowDown':
+            moveBackwards();
+            break;
+        case 'NumpadAdd':
+            zoomIn();
+            break;
+        case 'NumpadSubtract':
+            zoomOut();
+            break;
+        case 'Numpad2':
+            moveDown();
+            break;
+        case 'Numpad8':
+            moveUp();
+            break;
+        case 'KeyQ':
+            rotateZNoClockwise();
+            break;
+        case 'KeyE':
+            rotateZClockwise();
+            break;
+    }
+});
 
 function zoomIn() {
     focal += STEP_FOCAL_CHANGE;
@@ -137,7 +184,6 @@ function rotateDown() {
     for (let i =0; i < vectors.length; i++){
         vectors[i][0][1] = vectors[i][0][1] * Math.cos(COEFFICIENT_ROTATE) - vectors[i][0][2] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][0][2] = vectors[i][0][2] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][0][1] * Math.sin(COEFFICIENT_ROTATE);
-
         vectors[i][1][1] = vectors[i][1][1] * Math.cos(COEFFICIENT_ROTATE) - vectors[i][1][2] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][1][2] = vectors[i][1][2] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][1][1] * Math.sin(COEFFICIENT_ROTATE);
     }
@@ -148,7 +194,6 @@ function rotateRight() {
     for (let i =0; i < vectors.length; i++){
         vectors[i][0][0] = vectors[i][0][0] * Math.cos(COEFFICIENT_ROTATE) - vectors[i][0][1] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][0][1] = vectors[i][0][1] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][0][0] * Math.sin(COEFFICIENT_ROTATE);
-
         vectors[i][1][0] = vectors[i][1][0] * Math.cos(COEFFICIENT_ROTATE) - vectors[i][1][1] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][1][1] = vectors[i][1][1] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][1][0] * Math.sin(COEFFICIENT_ROTATE);
     }
@@ -159,7 +204,6 @@ function rotateLeft() {
     for (let i =0; i < vectors.length; i++){
         vectors[i][0][0] = vectors[i][0][0] * Math.cos((-1) * COEFFICIENT_ROTATE) - vectors[i][0][1] * Math.sin((-1) * COEFFICIENT_ROTATE);
         vectors[i][0][1] = vectors[i][0][1] * Math.cos((-1) * COEFFICIENT_ROTATE) + vectors[i][0][0] * Math.sin((-1) * COEFFICIENT_ROTATE);
-
         vectors[i][1][0] = vectors[i][1][0] * Math.cos((-1) * COEFFICIENT_ROTATE) - vectors[i][1][1] * Math.sin((-1) * COEFFICIENT_ROTATE);
         vectors[i][1][1] = vectors[i][1][1] * Math.cos((-1) * COEFFICIENT_ROTATE) + vectors[i][1][0] * Math.sin((-1) * COEFFICIENT_ROTATE);
     }
@@ -170,7 +214,6 @@ function rotateZNoClockwise() {
     for (let i =0; i < vectors.length; i++){
         vectors[i][0][0] = vectors[i][0][0] * Math.cos((-1) * COEFFICIENT_ROTATE) + vectors[i][0][2] * Math.sin((-1) * COEFFICIENT_ROTATE);
         vectors[i][0][2] = (-1) * vectors[i][0][0] * Math.sin((-1) * COEFFICIENT_ROTATE) + vectors[i][0][2] * Math.cos((-1) * COEFFICIENT_ROTATE);
-
         vectors[i][1][0] = vectors[i][1][0] * Math.cos((-1) * COEFFICIENT_ROTATE) + vectors[i][1][2] * Math.sin((-1) * COEFFICIENT_ROTATE);
         vectors[i][1][2] = (-1) * vectors[i][1][0] * Math.sin((-1) * COEFFICIENT_ROTATE) + vectors[i][1][2] * Math.cos((-1) * COEFFICIENT_ROTATE);
     }
@@ -181,7 +224,6 @@ function rotateZClockwise() {
     for (let i =0; i < vectors.length; i++){
         vectors[i][0][0] = vectors[i][0][0] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][0][2] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][0][2] = (-1) * vectors[i][0][0] * Math.sin(COEFFICIENT_ROTATE) + vectors[i][0][2] * Math.cos(COEFFICIENT_ROTATE);
-
         vectors[i][1][0] = vectors[i][1][0] * Math.cos(COEFFICIENT_ROTATE) + vectors[i][1][2] * Math.sin(COEFFICIENT_ROTATE);
         vectors[i][1][2] = (-1) * vectors[i][1][0] * Math.sin(COEFFICIENT_ROTATE) + vectors[i][1][2] * Math.cos(COEFFICIENT_ROTATE);
     }
@@ -211,11 +253,8 @@ function cast3DPointTo2DPoint(point) {
 function drawImage() {
     let canvas = document.getElementById('cameraCanvas');
     let context = canvas.getContext('2d');
-
     let vectors2D = castVectorsTo2DPlain();
-
     context.clearRect(0, 0, canvas.width, canvas.height);
-
     vectors2D.map( (vector) => {
         context.beginPath();
         context.moveTo(vector[0][0], vector[0][1]);
@@ -223,52 +262,5 @@ function drawImage() {
         context.stroke();
     });
 }
-
-document.addEventListener('keydown', function(event) {
-    switch (event.code) {
-        case 'KeyW':
-            rotateUp();
-            break;
-        case 'KeyS':
-            rotateDown();
-            break;
-        case 'KeyA':
-            rotateLeft();
-            break;
-        case 'KeyD':
-            rotateRight();
-            break;
-        case 'ArrowRight':
-            moveRight();
-            break;
-        case 'ArrowLeft':
-            moveLeft();
-            break;
-        case 'ArrowUp':
-            moveForward();
-            break;
-        case 'ArrowDown':
-            moveBackwards();
-            break;
-        case 'NumpadAdd':
-            zoomIn();
-            break;
-        case 'NumpadSubtract':
-            zoomOut();
-            break;
-        case 'Numpad2':
-            moveDown();
-            break;
-        case 'Numpad8':
-            moveUp();
-            break;
-        case 'KeyQ':
-            rotateZNoClockwise();
-            break;
-        case 'KeyE':
-            rotateZClockwise();
-            break;
-    }
-});
 
 drawImage();
